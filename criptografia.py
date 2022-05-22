@@ -13,7 +13,7 @@ def pesquisar_letra(str, dict=chars):
         int: Número referente a letra.
     """
     # Realiza a busca por chave específica.
-    return(dict.get(str))
+    return dict.get(str)
 
 
 def pesquisar_numero(int, dict=chars):
@@ -33,22 +33,41 @@ def pesquisar_numero(int, dict=chars):
 
 
 def separar_letras(str):
-    """Separa as letras de uma frase, adicionando-as a uma lista, atribuindo a cada índice uma letra.
+    """Separa as letras de uma frase.
 
     Args:
         str (str): Frase que será separada em letras.
 
     Returns:
-        list: Lista com as letras separadas em índices.
+        list: Lista com letras separadas em índices.
     """
     letras = []
 
     for i in str:
         letras.append(i)
+    
     return letras
 
 
-def cifra_cesar(key, str):
+def montar_frase(str):
+    """Monta uma frase a partir de letras separadas (ou avulsas) por índices de uma lista.
+
+    Args:
+        str (str): Letras avulsas ou lista com letras separadas.
+
+    Returns:
+        str: Frase completa.
+    """
+    frase = ''
+    
+    for letras in str:
+        frase += letras
+    
+    return frase
+
+
+
+def cifra_cesar(rot, str):
     """Realiza a criptografia baseada na Cifra de César.
 
     Args:
@@ -61,12 +80,17 @@ def cifra_cesar(key, str):
     # Separando as letras em uma frase para atribuir a chave pra cada letra.
     frase = separar_letras(str)
 
-    # Pesquisando o número correspondente de cada letra no dicionário.
-    letra = pesquisar_letra(frase)
-    # Atribuindo a chave para realizar a criptografia, retornando um novo valor que será uma nova letra.
-    k = key + int(letra)
+    nova_frase = ''
+    for l in frase:
 
-    # Realizando a busca de acordo com a soma da chave e do valor da letra, retornando a letra que corresponde a esse novo valor.
-    nova_letra = pesquisar_numero(k)
+        # Pesquisando o número correspondente de cada letra no dicionário.
+        letra = pesquisar_letra(l)
+        # Atribuindo a chave para realizar a criptografia, retornando um novo valor que será uma nova letra.
+        k = rot + letra
+        # Realizando a busca de acordo com a soma da chave e do valor da letra, retornando a letra que corresponde a esse novo valor.
+        nova_letra = pesquisar_numero(k)
 
-    return nova_letra
+        # Montando uma nova frase com as letras sendo trocadas.
+        nova_frase += montar_frase(nova_letra)
+
+    return(nova_frase)

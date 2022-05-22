@@ -1,8 +1,8 @@
 from caracteres import lista_caracteres as char
-import criptografia as cripto
+import criptografia as c
 
 str = str(input("Digite uma mensagem "))
-key = 2
+rotacao = 2
 
-print(cripto.separar_letras(str))
-cripto.pesqu
+print(c.cifra_cesar(str=str, rot=rotacao))
+
